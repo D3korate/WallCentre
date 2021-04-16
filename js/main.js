@@ -76,6 +76,7 @@ function slider() {
     let offset = 0;
     let ofset2 = 0;
     let dottIndex = 0;
+    let dottHeight = 71;
 
 
 
@@ -104,9 +105,16 @@ function slider() {
             for (let x = 0; x < dottList.length; x++) {
                 dottList[x].classList.remove('active');
             }
-
-
-
+            console.log(i + "," + (dottList.length - 1));
+            if (i == 0 ) {
+                ofset2 = [i] * dottHeight;
+            }
+            else if (i == dottList.length - 1) {
+                ofset2 = ([i] * dottHeight) - (dottHeight * 2);
+            }
+            else {
+                ofset2 = ([i] * dottHeight) - dottHeight;
+            }
             document.querySelector(".b-slide__dott").style.top = -ofset2 + "px";
 
             dottList[i].classList.add('active');
@@ -118,14 +126,14 @@ function slider() {
 
     document.querySelector(".b-slide__top").classList.add("distable");
 
-    function sliderArrowDistable(){ 
+    function sliderArrowDistable() {
 
 
 
         if (dottIndex == 0) {
-            
+
             document.querySelector(".b-slide__top").classList.add("distable");
-    
+
         }
         else {
             document.querySelector(".b-slide__top").classList.remove("distable");
@@ -133,11 +141,11 @@ function slider() {
         }
 
 
-        
+
         if (dottIndex == dottList.length - 1) {
-            
+
             document.querySelector(".b-slide__bottom").classList.add("distable");
-    
+
         }
         else {
             document.querySelector(".b-slide__bottom").classList.remove("distable");
@@ -147,23 +155,23 @@ function slider() {
     };
 
 
- 
+
 
     function slideTop() {
 
-        
-    
+
+
 
 
         if (dottIndex > 0) {
             dottIndex--;
-           
+
         }
 
 
 
         if (offset == 0) {
-            
+
             offset;
             document.querySelector(".b-slide__top").classList.add("distable");
 
@@ -176,7 +184,7 @@ function slider() {
 
         if (offset < 0) {
             offset = (bSlide.length - 1) * screenWidth;
-            
+
         }
 
         document.querySelector(".b-slider").style.left = -offset + "px";
@@ -194,11 +202,11 @@ function slider() {
         }
 
         else {
-            ofset2 = (71 * dottIndex) - 71;
+            ofset2 = (dottHeight * dottIndex) - dottHeight;
 
 
         }
-        
+
 
         document.querySelector(".b-slide__dott").style.top = -ofset2 + "px";
 
@@ -212,7 +220,7 @@ function slider() {
             }
 
             if (dottIndex == i) {
-             
+
                 dottList[i].classList.add('active');
             }
 
@@ -230,7 +238,7 @@ function slider() {
 
     function slideBottom() {
 
-    
+
 
         if (dottIndex < bSlide.length - 1) {
             dottIndex++;
@@ -253,11 +261,11 @@ function slider() {
 
 
 
-        if (ofset2 > 71 * (dottList.length - 4)) {
+        if (ofset2 > dottHeight * (dottList.length - 4)) {
             ofset2;
         }
         else {
-            ofset2 = (71 * dottIndex) - 71;
+            ofset2 = (dottHeight * dottIndex) - dottHeight;
             document.querySelector(".b-slide__dott").style.top = -ofset2 + "px";
         }
 
@@ -276,7 +284,7 @@ function slider() {
         }
 
         sliderArrowDistable();
-        
+
 
     };
 

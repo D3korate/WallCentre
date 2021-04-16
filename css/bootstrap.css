@@ -55,6 +55,10 @@ html {
   width: device-width;
 }
 
+img {
+  display: block
+}
+
 article,
 aside,
 figcaption,
