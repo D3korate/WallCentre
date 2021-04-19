@@ -214,6 +214,24 @@ function sliderProject() {
 
 }
 
+
+let header = document.querySelector(".head");
+
+
+window.addEventListener('scroll', function() {
+   
+    if (pageYOffset > 80) {
+        header.classList.add("fixed");
+      }
+
+      else {
+        header.classList.remove("fixed");
+      }
+
+  });
+
+  
+
 slider();
 sliderProject();
 tabs(tabs1);
