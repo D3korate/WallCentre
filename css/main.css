@@ -650,28 +650,98 @@ img.b-tab {
 }
 
 .b-project {
-  padding-bottom: 120px;
+  padding-bottom: 75px;
 }
 
 .b-project__slider {
   margin-top: 50px;
+  position: relative;
 }
 
-.b-project__slide img {
-  max-width: 100%;
+.b-project__slide {
+  overflow: hidden;
 }
 
-.b-project__listimg {
+.b-project__slide__list {
   display: flex;
-  justify-content: space-between;
+  transition: all ease 1s;
   flex-wrap: wrap;
+  position: relative;
+  left: 0;
+
 }
 
-.b-project__listimg > li {
-  width: calc(33% - 30px);
 
-  padding-bottom: 45px;
+.b-project__slide__item {
+  width: 360px;
+  margin-right: 30px;
+  margin-bottom: 45px;
+  position: relative;
   box-sizing: border-box;
+
+}
+
+.b-project__slide__item:last-child {
+  margin-right: 0;
+}
+
+.b-project__slide__item__txt {
+position: absolute;
+left: 0;
+right: 0;
+top: 0;
+bottom: 0;
+display: flex;
+justify-content: center;
+align-items: center;
+padding: 10px;
+color: #fff;
+text-align: center;
+font-size: 18px;
+line-height: 21px;
+box-sizing: border-box;
+border-radius: 5px;
+background: rgba(0, 0, 0, 0.5);
+display: none;
+}
+
+.b-project__slide__item:hover .b-project__slide__item__txt {
+  display: flex;
+}
+
+.b-project__slide__item img {
+  width: 100%;
+  display: block;
+}
+
+
+
+.b-project__slide__prev {
+  height: 40px;
+  width: 40px;
+  position: absolute;
+  top: 50%;
+  margin-top: -40px;
+  left: -100px;
+  z-index: 100;
+  background: #f2a800 url(../img/arrow3.svg) no-repeat center center;
+  box-shadow: 0px 8px 30px rgba(18, 18, 18, 0.1);
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.b-project__slide__next {
+  height: 40px;
+  width: 40px;
+  position: absolute;
+  top: 50%;
+  margin-top: -40px;
+  z-index: 100;
+  right: -100px;
+  background: #f2a800 url(../img/arrow4.svg) no-repeat center center;
+  box-shadow: 0px 8px 30px rgba(18, 18, 18, 0.1);
+  border-radius: 5px;
+  cursor: pointer;
 }
 
 .b-stock__item {
@@ -917,10 +987,8 @@ img.b-tab {
   text-align: left;
 }
 
-
 .b-footer {
   padding: 50px 0;
-
 }
 
 .b-footer__info__list {
@@ -934,8 +1002,6 @@ img.b-tab {
   color: #000;
 }
 
-
 .b-footer__contact > li {
   margin-bottom: 26px;
-
 }
