@@ -230,13 +230,12 @@ window.addEventListener('scroll', function () {
 
 });
 
-
+function modal() {
 let modalPopup = document.querySelector(".modal-popup");
 let bTabLinkOrder = document.querySelectorAll(".b-tab-linkOrder");
-console.log(modalPopup.Element);
+
 
 for (let i = 0; i < bTabLinkOrder.length; i++) {
-    console.log("сработало");
     bTabLinkOrder[i].addEventListener("click", function () {
         modalPopup.style.display = "flex";
     });
@@ -248,6 +247,9 @@ modalPopup.addEventListener("click", function (event) {
       }
 })
 
+}
+
+modal();
 
 
 
