@@ -158,7 +158,7 @@ function slider() {
 
 
 function sliderProject() {
-    
+
     let sliderImg = document.querySelectorAll(".b-project__slide__item");
     let sliderBody = document.querySelector(".b-project__slide__list");
     let offset = 0;
@@ -218,19 +218,39 @@ function sliderProject() {
 let header = document.querySelector(".head");
 
 
-window.addEventListener('scroll', function() {
-   
+window.addEventListener('scroll', function () {
+
     if (pageYOffset > 80) {
         header.classList.add("fixed");
-      }
+    }
 
-      else {
+    else {
         header.classList.remove("fixed");
+    }
+
+});
+
+
+let modalPopup = document.querySelector(".modal-popup");
+let bTabLinkOrder = document.querySelectorAll(".b-tab-linkOrder");
+console.log(modalPopup.Element);
+
+for (let i = 0; i < bTabLinkOrder.length; i++) {
+    console.log("сработало");
+    bTabLinkOrder[i].addEventListener("click", function () {
+        modalPopup.style.display = "flex";
+    });
+}
+
+modalPopup.addEventListener("click", function (event) {
+      if (event.target == this) {
+      this.style.display = "none";
       }
+})
 
-  });
 
-  
+
+
 
 slider();
 sliderProject();
