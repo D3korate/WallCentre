@@ -231,29 +231,58 @@ window.addEventListener('scroll', function () {
 });
 
 function modal() {
-let modalPopup = document.querySelector(".modal-popup");
-let bTabLinkOrder = document.querySelectorAll(".b-tab-linkOrder");
+    let modalPopup = document.querySelector(".modal-popup");
+    let bTabLinkOrder = document.querySelectorAll(".b-tab-linkOrder");
 
 
-for (let i = 0; i < bTabLinkOrder.length; i++) {
-    bTabLinkOrder[i].addEventListener("click", function () {
-        modalPopup.style.display = "flex";
-    });
+    for (let i = 0; i < bTabLinkOrder.length; i++) {
+        bTabLinkOrder[i].addEventListener("click", function () {
+            modalPopup.style.display = "flex";
+        });
+    }
+
+    modalPopup.addEventListener("click", function (event) {
+        if (event.target == this) {
+            this.style.display = "none";
+        }
+    })
+
 }
 
-modalPopup.addEventListener("click", function (event) {
-      if (event.target == this) {
-      this.style.display = "none";
-      }
-})
+function lightbox() {
+    let imgList = document.querySelectorAll(".b-project__slide__item");
+
+    for (let i = 0; i < imgList.length; i++) {
+
+        imgList[i].addEventListener("click", function (event) {
+            event.preventDefault();
+            let lightboxParentDiv = document.createElement('div');
+            let lightboxChildDiv = document.createElement('div');
+            let img = document.createElement('img');
+            let close = document.createElement('span');
+            let span = document.createElement('span');
+            let dec = imgList[i].querySelector(".b-project__slide__item__txt").innerHTML;
+            img.setAttribute("src", imgList[i].href);
+            close.classList.add("lightbox__close");
+            span.classList.add("lightbox__span");
+            span.innerHTML = dec;
+            lightboxParentDiv.classList.add("lightbox");
+            lightboxChildDiv.classList.add("lightbox__fl");
+            document.body.appendChild(lightboxParentDiv);
+            lightboxParentDiv.appendChild(lightboxChildDiv);
+            lightboxChildDiv.appendChild(img);
+            lightboxChildDiv.appendChild(close);
+            lightboxChildDiv.appendChild(span);
+            close.addEventListener("click", function () {
+                lightboxParentDiv.remove();
+            })
+        });
+    }
 
 }
 
+lightbox();
 modal();
-
-
-
-
 slider();
 sliderProject();
 tabs(tabs1);
