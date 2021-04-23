@@ -273,6 +273,11 @@ function lightbox() {
             lightboxChildDiv.appendChild(img);
             lightboxChildDiv.appendChild(close);
             lightboxChildDiv.appendChild(span);
+            lightboxParentDiv.addEventListener("click", function(event) {       
+                if (event.target == this) {
+                    lightboxParentDiv.remove();
+                }
+            });
             close.addEventListener("click", function () {
                 lightboxParentDiv.remove();
             })
