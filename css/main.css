@@ -625,6 +625,29 @@ img.b-tab {
   border-radius: 50%;
   color: #ffffff;
   padding: 20px;
+  position: relative;
+}
+
+.b-digitalCompany__circle {
+  height: 193px;
+  width: 193px;
+  position: absolute;
+  left: 20px;
+  top: 20px;
+  border-radius: 50%;
+  overflow: hidden;
+  z-index: 2;
+}
+
+.b-digitalCompany__circle > i {
+  height: 193px;
+  width: 193px;
+  position: relative;
+  display: block;
+  left: 0;
+  top: 0;
+  transform: rotate(-180deg);
+  background-color: #f2a800;
 }
 
 .b-digitalCompany__item > div {
@@ -659,6 +682,8 @@ img.b-tab {
   display: block;
   margin-bottom: 10px;
   color: #ffffff;
+  position: relative;
+  z-index: 3;
 }
 
 .b-textAbout {

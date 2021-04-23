@@ -1,3 +1,34 @@
+
+function circleAnimation() {
+
+let item = document.querySelector(".b-digitalCompany__item");
+let circle = document.querySelectorAll(".b-digitalCompany__circle > i");
+
+
+window.addEventListener('scroll', function () {
+var c = item.getBoundingClientRect();
+let scrolltop = document.body.scrollTop + c.top;
+
+let procent = window.innerHeight / 100;
+let procent2 = scrolltop / procent;
+console.log(scrolltop);
+ 
+   if (window.innerHeight > scrolltop && scrolltop > 0) {
+
+
+
+        for (let i = 0;i<circle.length;i++){
+            circle[i].style.height = procent2 + "%";
+        }
+
+     
+    }
+   
+
+});
+
+}
+
 function tabs(tabsId) {
 
 
@@ -273,7 +304,7 @@ function lightbox() {
             lightboxChildDiv.appendChild(img);
             lightboxChildDiv.appendChild(close);
             lightboxChildDiv.appendChild(span);
-            lightboxParentDiv.addEventListener("click", function(event) {       
+            lightboxParentDiv.addEventListener("click", function (event) {
                 if (event.target == this) {
                     lightboxParentDiv.remove();
                 }
@@ -293,3 +324,4 @@ sliderProject();
 tabs(tabs1);
 tabs(tabs2);
 tabs(tabs3);
+circleAnimation();
