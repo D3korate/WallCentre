@@ -1,33 +1,33 @@
 
-function circleAnimation() {
+// function circleAnimation() {
 
-let item = document.querySelector(".b-digitalCompany__item");
-let circle = document.querySelectorAll(".b-digitalCompany__circle > i");
-
-
-window.addEventListener('scroll', function () {
-var c = item.getBoundingClientRect();
-let scrolltop = document.body.scrollTop + c.top;
-
-let procent = window.innerHeight / 100;
-let procent2 = scrolltop / procent;
-console.log(scrolltop);
- 
-   if (window.innerHeight > scrolltop && scrolltop > 0) {
+// let item = document.querySelector(".b-digitalCompany__item");
+// let circle = document.querySelectorAll(".b-digitalCompany__circle > i");
 
 
+// window.addEventListener('scroll', function () {
+// var c = item.getBoundingClientRect();
+// let scrolltop = document.body.scrollTop + c.top;
 
-        for (let i = 0;i<circle.length;i++){
-            circle[i].style.height = procent2 + "%";
-        }
+// let procent = window.innerHeight / 100;
+// let procent2 = scrolltop / procent;
+// console.log(scrolltop);
 
-     
-    }
-   
+//    if (window.innerHeight > scrolltop && scrolltop > 0) {
 
-});
 
-}
+
+//         for (let i = 0;i<circle.length;i++){
+//             circle[i].style.height = procent2 + "%";
+//         }
+
+
+//     }
+
+
+// });
+
+// }
 
 function tabs(tabsId) {
 
@@ -58,7 +58,7 @@ function tabs(tabsId) {
 
 function slider() {
     let bSlide = document.querySelectorAll(".b-slide");
-    let screenWidth = screen.width;
+    let screenWidth = window.innerWidth;
     document.querySelector(".b-slider").style.width = screenWidth * bSlide.length + "px";
     let offset = 0;
     let ofset2 = 0;
@@ -193,7 +193,26 @@ function sliderProject() {
     let sliderImg = document.querySelectorAll(".b-project__slide__item");
     let sliderBody = document.querySelector(".b-project__slide__list");
     let offset = 0;
-    let sliderImgWidht = ((sliderImg.length / 2) * 390);
+
+    let windowScreen = document.querySelector(".container").clientWidth;
+    let widthItem;
+
+    let sliderImgWidht = ((sliderImg.length / 2) * (windowScreen / 3));
+    if (windowScreen < 768) {
+        sliderImgWidht = ((sliderImg.length / 2) * windowScreen);
+        for (let i = 0; i < sliderImg.length; i++) {
+            sliderImg[i].style.width = windowScreen + "px";
+        }
+        widthItem = windowScreen;
+    }
+    if (windowScreen > 768) {
+        for (let i = 0; i < sliderImg.length; i++) {
+            sliderImg[i].style.width = windowScreen / 3 + "px";
+        }
+        widthItem = windowScreen / 3;
+    }
+
+
     sliderBody.style.width = sliderImgWidht + "px";
     if (sliderImg.length > 6) {
         let linkPrev = document.createElement('a');
@@ -214,7 +233,7 @@ function sliderProject() {
 
             }
             else {
-                offset += +390;
+                offset += +widthItem;
 
             }
             sliderBody.style.left = offset + "px";
@@ -230,7 +249,7 @@ function sliderProject() {
 
             }
             else {
-                offset += -390;
+                offset += -widthItem;
 
             }
             sliderBody.style.left = offset + "px";
@@ -245,13 +264,13 @@ function sliderProject() {
 
 }
 
-
-let header = document.querySelector(".head");
+function fixHeader() {
+let header = document.querySelector(".b-head");
 
 
 window.addEventListener('scroll', function () {
 
-    if (pageYOffset > 80) {
+    if (pageYOffset > 80 || burgerClick) {
         header.classList.add("fixed");
     }
 
@@ -260,6 +279,7 @@ window.addEventListener('scroll', function () {
     }
 
 });
+}
 
 function modal() {
     let modalPopup = document.querySelector(".modal-popup");
@@ -317,6 +337,26 @@ function lightbox() {
 
 }
 
+
+function mobMenu() {
+let mobileMenu = document.querySelector(".b-header__mobile-menu");
+
+let burgerClick = false;
+document.querySelector(".b-header__burger").addEventListener("click", function () {
+    if (burgerClick == true) {
+        burgerClick = false;
+        mobileMenu.style.display = "none";
+        return this.classList.remove("open");
+    }
+    burgerClick = true;
+    this.classList.add("open");
+
+    mobileMenu.style.display = "flex";
+});
+}
+
+mobMenu();
+fixHeader();
 lightbox();
 modal();
 slider();
@@ -324,4 +364,3 @@ sliderProject();
 tabs(tabs1);
 tabs(tabs2);
 tabs(tabs3);
-circleAnimation();
