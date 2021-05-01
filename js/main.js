@@ -200,6 +200,10 @@ function sliderProject() {
     let sliderImgWidht = ((sliderImg.length / 2) * (windowScreen / 3));
     if (windowScreen < 768) {
         sliderImgWidht = ((sliderImg.length / 2) * windowScreen);
+        if (windowScreen < 576) {
+            sliderImgWidht = ((sliderImg.length) * windowScreen);
+        }
+
         for (let i = 0; i < sliderImg.length; i++) {
             sliderImg[i].style.width = windowScreen + "px";
         }
@@ -265,20 +269,20 @@ function sliderProject() {
 }
 
 function fixHeader() {
-let header = document.querySelector(".b-head");
+    let header = document.querySelector(".b-head");
 
 
-window.addEventListener('scroll', function () {
+    window.addEventListener('scroll', function () {
 
-    if (pageYOffset > 80 || burgerClick) {
-        header.classList.add("fixed");
-    }
+        if (pageYOffset > 80 || burgerClick) {
+            header.classList.add("fixed");
+        }
 
-    else {
-        header.classList.remove("fixed");
-    }
+        else {
+            header.classList.remove("fixed");
+        }
 
-});
+    });
 }
 
 function modal() {
@@ -337,24 +341,42 @@ function lightbox() {
 
 }
 
-
-function mobMenu() {
-let mobileMenu = document.querySelector(".b-header__mobile-menu");
-
 let burgerClick = false;
-document.querySelector(".b-header__burger").addEventListener("click", function () {
-    if (burgerClick == true) {
-        burgerClick = false;
-        mobileMenu.style.display = "none";
-        return this.classList.remove("open");
-    }
-    burgerClick = true;
-    this.classList.add("open");
+function mobMenu() {
+    let mobileMenu = document.querySelector(".b-header__mobile-menu");
 
-    mobileMenu.style.display = "flex";
-});
+
+    document.querySelector(".b-header__burger").addEventListener("click", function () {
+        if (burgerClick == true) {
+            burgerClick = false;
+            mobileMenu.style.display = "none";
+            return this.classList.remove("open");
+        }
+        burgerClick = true;
+        this.classList.add("open");
+
+        mobileMenu.style.display = "flex";
+    });
 }
 
+
+function sameHeight() {
+let bPartitionIntroArray = [];
+let bPartitionIntro = document.querySelectorAll(".b-partition__intro");
+
+
+bPartitionIntro.forEach(function(el) {
+    bPartitionIntroArray.push(el.offsetHeight);
+});
+
+if (window.innerWidth > 768) {
+bPartitionIntro.forEach(function(el) {
+    el.style.height = Math.max(...bPartitionIntroArray) + "px";
+});
+}
+}
+
+sameHeight();
 mobMenu();
 fixHeader();
 lightbox();
@@ -364,3 +386,5 @@ sliderProject();
 tabs(tabs1);
 tabs(tabs2);
 tabs(tabs3);
+
+
