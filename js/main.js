@@ -29,6 +29,9 @@
 
 // }
 
+let arrowTop = document.querySelector(".b-slide__top");
+let arrowBottom = document.querySelector(".b-slide__bottom");
+
 function tabs(tabsId) {
 
 
@@ -104,20 +107,20 @@ function slider() {
 
     }
 
-    document.querySelector(".b-slide__top").classList.add("distable");
+    arrowTop.classList.add("distable");
 
     function sliderArrowDistable() {
         if (dottIndex == 0) {
-            document.querySelector(".b-slide__top").classList.add("distable");
+            arrowTop.classList.add("distable");
         }
         else {
-            document.querySelector(".b-slide__top").classList.remove("distable");
+            arrowTop.classList.remove("distable");
         }
         if (dottIndex == dottList.length - 1) {
-            document.querySelector(".b-slide__bottom").classList.add("distable");
+            arrowBottom.classList.add("distable");
         }
         else {
-            document.querySelector(".b-slide__bottom").classList.remove("distable");
+            arrowBottom.classList.remove("distable");
         }
     };
     function slideTop() {
@@ -126,11 +129,11 @@ function slider() {
         }
         if (offset == 0) {
             offset;
-            document.querySelector(".b-slide__top").classList.add("distable");
+            arrowTop.classList.add("distable");
         }
         else {
             offset -= screenWidth;
-            document.querySelector(".b-slide__top").classList.remove("distable");
+            arrowTop.classList.remove("distable");
         }
         if (offset < 0) {
             offset = (bSlide.length - 1) * screenWidth;
@@ -182,10 +185,107 @@ function slider() {
         sliderArrowDistable();
 
     };
-    document.querySelector(".b-slide__top").addEventListener("click", slideTop);
-    document.querySelector(".b-slide__bottom").addEventListener("click", slideBottom);
+    arrowTop.addEventListener("click", slideTop);
+    arrowBottom.addEventListener("click", slideBottom);
+
+
+
 }
 
+
+const touchField = document.querySelector(".b-slide-container");
+const touchFieldProj = document.querySelector(".b-project__slider");
+
+function touch(e, c, b) {
+
+    //Чувствительность — количество пикселей, после которого жест будет считаться свайпом
+    const sensitivity = 20;
+
+
+    var touchStart = null; //Точка начала касания
+    var touchPosition = null; //Текущая позиция
+
+    //Перехватываем события
+    e.addEventListener("touchstart", function (e) { TouchStart(e); }); //Начало касания
+    e.addEventListener("touchmove", function (e) { TouchMove(e); }); //Движение пальцем по экрану
+    //Пользователь отпустил экран
+    e.addEventListener("touchend", function (e) { TouchEnd(e, "green"); });
+    //Отмена касания
+    e.addEventListener("touchcancel", function (e) { TouchEnd(e, "red"); });
+
+    function TouchStart(e) {
+        //Получаем текущую позицию касания
+        touchStart = { x: e.changedTouches[0].clientX, y: e.changedTouches[0].clientY };
+        touchPosition = { x: touchStart.x, y: touchStart.y };
+
+    }
+
+    function TouchMove(e) {
+        //Получаем новую позицию
+        touchPosition = { x: e.changedTouches[0].clientX, y: e.changedTouches[0].clientY };
+
+    }
+
+    function TouchEnd(e, color) {
+
+
+        CheckAction(); //Определяем, какой жест совершил пользователь
+
+        //Очищаем позиции
+        touchStart = null;
+        touchPosition = null;
+    }
+
+    function CheckAction() {
+        var d = //Получаем расстояния от начальной до конечной точек по обеим осям
+        {
+            x: touchStart.x - touchPosition.x,
+            y: touchStart.y - touchPosition.y
+        };
+
+
+        if (Math.abs(d.x) > Math.abs(d.y)) //Проверяем, движение по какой оси было длиннее
+        {
+            if (Math.abs(d.x) > sensitivity) //Проверяем, было ли движение достаточно длинным
+            {
+                if (d.x > 0) //Если значение больше нуля, значит пользователь двигал пальцем справа налево
+                {
+
+                    c.click();
+                }
+                else //Иначе он двигал им слева направо
+                {
+                    b.click();
+
+                }
+            }
+        }
+        else //Аналогичные проверки для вертикальной оси
+        {
+            if (Math.abs(d.y) > sensitivity) {
+                if (d.y > 0) //Свайп вверх
+                {
+
+                }
+                else //Свайп вниз
+                {
+
+                }
+            }
+        }
+
+    }
+}
+
+
+let linkPrev = document.createElement('a');
+linkPrev.className = "b-project__slide__prev";
+linkPrev.style.display = "none"
+document.querySelector(".b-project__slider").append(linkPrev);
+let linkNext = document.createElement('a');
+linkNext.className = "b-project__slide__next";
+linkNext.style.display = "none"
+document.querySelector(".b-project__slider").append(linkNext);
 
 
 function sliderProject() {
@@ -217,16 +317,12 @@ function sliderProject() {
     }
 
 
+
     sliderBody.style.width = sliderImgWidht + "px";
     if (sliderImg.length > 6) {
-        let linkPrev = document.createElement('a');
-        linkPrev.className = "b-project__slide__prev";
-        document.querySelector(".b-project__slider").append(linkPrev);
 
-        let linkNext = document.createElement('a');
-        linkNext.className = "b-project__slide__next";
-        document.querySelector(".b-project__slider").append(linkNext);
-
+        linkPrev.style.display = "block"
+        linkNext.style.display = "block"
 
         function prev() {
 
@@ -246,7 +342,7 @@ function sliderProject() {
         function next() {
             let leftPosition = sliderBody.style.left;
             leftPosition = leftPosition.replace(/[^0-9]/gim, "");
-            console.log(leftPosition + "=" + sliderImgWidht);
+
             if (leftPosition >= sliderImgWidht / 2) {
 
                 offset = 0;
@@ -263,10 +359,8 @@ function sliderProject() {
 
     }
 
-
-
-
 }
+
 
 function fixHeader() {
     let header = document.querySelector(".b-head");
@@ -361,20 +455,24 @@ function mobMenu() {
 
 
 function sameHeight() {
-let bPartitionIntroArray = [];
-let bPartitionIntro = document.querySelectorAll(".b-partition__intro");
+    let bPartitionIntroArray = [];
+    let bPartitionIntro = document.querySelectorAll(".b-partition__intro");
 
 
-bPartitionIntro.forEach(function(el) {
-    bPartitionIntroArray.push(el.offsetHeight);
-});
+    bPartitionIntro.forEach(function (el) {
+        bPartitionIntroArray.push(el.offsetHeight);
+    });
 
-if (window.innerWidth > 768) {
-bPartitionIntro.forEach(function(el) {
-    el.style.height = Math.max(...bPartitionIntroArray) + "px";
-});
+    if (window.innerWidth > 768) {
+        bPartitionIntro.forEach(function (el) {
+            el.style.height = Math.max(...bPartitionIntroArray) + "px";
+        });
+    }
 }
-}
+
+
+
+
 
 sameHeight();
 mobMenu();
@@ -386,5 +484,6 @@ sliderProject();
 tabs(tabs1);
 tabs(tabs2);
 tabs(tabs3);
-
+touch(touchField, arrowBottom, arrowTop);
+touch(touchFieldProj, linkNext, linkPrev);
 
